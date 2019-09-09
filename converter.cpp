@@ -15,21 +15,30 @@ int main(int argc, char** argv)
     UParseError parseErr;
     UErrorCode status = U_ZERO_ERROR;
     UnicodeString s("1１");
-    checkWidth(s.char32At(0));
-    checkWidth(s.char32At(1));
+    // checkWidth(s.char32At(0));
+    // checkWidth(s.char32At(1));
 
     u_init(&status);
     printf("u_init() status: %s\n", u_errorName(status));
 
     status = U_ZERO_ERROR;
-    Transliterator* t = Transliterator::createInstance("Halfwidth-Fullwidth", UTRANS_FORWARD, parseErr, status);
-    printf("Transliterator::createInstance() status: %s\n", u_errorName(status));
-    if (t)
+    try
     {
-        UnicodeString s("123");
-        printf("%s ->", s);
-        t->transliterate(s);
-        printf("%s\n", s);
+        Transliterator* t = Transliterator::createInstance("Halfwidth-Fullwidth", UTRANS_FORWARD, parseErr, status);
+        printf("Transliterator::createInstance() status: %s\n", u_errorName(status));
+        if (t)
+        {
+            UnicodeString us("123");
+            string s;
+            us.toUTF8String(s);
+            cout << s << endl;
+
+            delete t;
+        }
+    }
+    catch(std::exception& e)
+    {
+        printf("what(): %s\n", e.what());
     }
 
     return 0;
