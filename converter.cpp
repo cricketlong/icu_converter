@@ -15,8 +15,8 @@ int main(int argc, char** argv)
     UParseError parseErr;
     UErrorCode status = U_ZERO_ERROR;
     UnicodeString s("1１");
-    // checkWidth(s.char32At(0));
-    // checkWidth(s.char32At(1));
+    checkWidth(s.char32At(0));
+    checkWidth(s.char32At(1));
 
     u_init(&status);
     printf("u_init() status: %s\n", u_errorName(status));
@@ -31,7 +31,11 @@ int main(int argc, char** argv)
             UnicodeString us("123");
             string s;
             us.toUTF8String(s);
-            cout << s << endl;
+            cout << s;
+            s.clear();
+            t->transliterate(us);
+            us.toUTF8String(s);
+            cout << " -> " << s << endl;
 
             delete t;
         }
