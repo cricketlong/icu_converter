@@ -1,15 +1,12 @@
 cmake_minimum_required(VERSION 3.0)
 project(converter)
-set(CMAKE_BINARY_DIR "/home/cricket/cpp/icu_converter")
 
 # add_definitions(-DUDATA_DEBUG=1)
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(ICU_ROOT_DIR "${CMAKE_MODULE_PATH}/icu_cmake/icu4c/source")
+set(ICU_INCLUDE_DIR "${ICU_ROOT_DIR}/common")
 
-
-if (DEFINED ICU_ROOT_DIR)
-    set(ICU_INCLUDE_DIR "${ICU_ROOT_DIR}/common")
-endif (DEFINED ICU_ROOT_DIR)
 
 find_package(Threads)
 find_package(ICU COMPONENTS i18n data uc REQUIRED )
